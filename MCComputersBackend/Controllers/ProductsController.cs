@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MCComputersBackend.Controllers
 {
+
     [ApiController]
     [Route("api/[controller]")]
+    [Produces("application/json")]
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
@@ -15,7 +17,10 @@ namespace MCComputersBackend.Controllers
             _productService = productService;
         }
 
+
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<Product>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<Product>>> GetAllProducts()
         {
             try
@@ -29,7 +34,11 @@ namespace MCComputersBackend.Controllers
             }
         }
 
+
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
             try
@@ -37,7 +46,7 @@ namespace MCComputersBackend.Controllers
                 var product = await _productService.GetProductByIdAsync(id);
                 if (product == null)
                     return NotFound($"Product with ID {id} not found.");
-                
+
                 return Ok(product);
             }
             catch (Exception ex)
@@ -46,7 +55,10 @@ namespace MCComputersBackend.Controllers
             }
         }
 
+
         [HttpGet("category/{category}")]
+        [ProducesResponseType(typeof(IEnumerable<Product>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<Product>>> GetProductsByCategory(string category)
         {
             try

@@ -4,17 +4,24 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MCComputersBackend.Controllers
 {
+
     [ApiController]
     [Route("api/[controller]")]
+    [Produces("application/json")]
     public class InvoicesController : ControllerBase
     {
         private readonly IInvoiceService _service;
+
         public InvoicesController(IInvoiceService service)
         {
             _service = service;
         }
 
+
         [HttpPost]
+        [ProducesResponseType(typeof(InvoiceResponseDto), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateInvoice([FromBody] CreateInvoiceDto dto)
         {
             if (dto == null || dto.Products == null || !dto.Products.Any())
@@ -31,7 +38,11 @@ namespace MCComputersBackend.Controllers
             }
         }
 
+
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(InvoiceResponseDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetInvoice(int id)
         {
             try
@@ -47,7 +58,10 @@ namespace MCComputersBackend.Controllers
             }
         }
 
+
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<InvoiceResponseDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAllInvoices()
         {
             try

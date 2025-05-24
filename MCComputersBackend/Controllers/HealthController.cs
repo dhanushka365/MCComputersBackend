@@ -4,9 +4,12 @@ namespace MCComputersBackend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Produces("application/json")]
     public class HealthController : ControllerBase
     {
+
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetHealth()
         {
             return Ok(new
@@ -19,6 +22,7 @@ namespace MCComputersBackend.Controllers
         }
 
         [HttpGet("detailed")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetDetailedHealth()
         {
             return Ok(new
