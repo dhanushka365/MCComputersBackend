@@ -42,6 +42,7 @@ builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
 // Register Service dependencies
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IInvoiceService, InvoiceService>();
+builder.Services.AddScoped<IFileService, FileService>();
 
 // Configure CORS
 builder.Services.AddCors(options =>
@@ -105,6 +106,10 @@ app.UseSwaggerUI(c =>
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
+
+// Enable static file serving for uploaded images
+app.UseStaticFiles();
+
 app.UseCors("AllowAll");
 app.UseAuthorization();
 

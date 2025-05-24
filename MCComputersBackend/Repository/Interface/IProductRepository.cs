@@ -8,5 +8,8 @@ namespace MCComputersBackend.Repository.Interface
         Task<Product?> GetProductByIdAsync(int id);
         Task<IEnumerable<Product>> GetProductsByCategoryAsync(string category);
         Task<List<Product>> GetProductsByIdsAsync(List<int> ids);
+        Task<Product> CreateProductAsync(Product product);
+        Task<Product> UpdateProductAsync(Product product);
+        Task<bool> DeleteProductAsync(int id);
     }
 }
