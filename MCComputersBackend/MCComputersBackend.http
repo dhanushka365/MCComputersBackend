@@ -1,6 +1,129 @@
-@MCComputersBackend_HostAddress = http://localhost:5199
+@MCComputersBackend_HostAddress = https://localhost:7000
 
-GET {{MCComputersBackend_HostAddress}}/weatherforecast/
+### Health Check
+GET {{MCComputersBackend_HostAddress}}/
+Accept: application/json
+
+### Get all products
+GET {{MCComputersBackend_HostAddress}}/api/products
+Accept: application/json
+
+### Get product by ID
+GET {{MCComputersBackend_HostAddress}}/api/products/1
+Accept: application/json
+
+### Get products by category - Laptops
+GET {{MCComputersBackend_HostAddress}}/api/products/category/Laptops
+Accept: application/json
+
+### Get products by category - Accessories
+GET {{MCComputersBackend_HostAddress}}/api/products/category/Accessories
+Accept: application/json
+
+### Create a new invoice - Valid
+POST {{MCComputersBackend_HostAddress}}/api/invoices
+Content-Type: application/json
+
+{
+  "transactionDate": "2024-01-15T10:30:00",
+  "discount": 50.00,
+  "products": [
+    {
+      "productId": 1,
+      "quantity": 2
+    },
+    {
+      "productId": 3,
+      "quantity": 1
+    }
+  ]
+}
+
+### Create a new invoice - With multiple products
+POST {{MCComputersBackend_HostAddress}}/api/invoices
+Content-Type: application/json
+
+{
+  "transactionDate": "2024-01-20T14:45:00",
+  "discount": 100.00,
+  "products": [
+    {
+      "productId": 1,
+      "quantity": 1
+    },
+    {
+      "productId": 4,
+      "quantity": 3
+    },
+    {
+      "productId": 5,
+      "quantity": 1
+    }
+  ]
+}
+
+### Create a new invoice - No discount
+POST {{MCComputersBackend_HostAddress}}/api/invoices
+Content-Type: application/json
+
+{
+  "transactionDate": "2024-01-25T09:15:00",
+  "products": [
+    {
+      "productId": 2,
+      "quantity": 1
+    },
+    {
+      "productId": 3,
+      "quantity": 2
+    }
+  ]
+}
+
+### Get all invoices
+GET {{MCComputersBackend_HostAddress}}/api/invoices
+Accept: application/json
+
+### Get invoice by ID
+GET {{MCComputersBackend_HostAddress}}/api/invoices/1
+Accept: application/json
+
+### Test invalid scenarios
+
+### Create invoice with invalid product ID
+POST {{MCComputersBackend_HostAddress}}/api/invoices
+Content-Type: application/json
+
+{
+  "transactionDate": "2024-01-15T10:30:00",
+  "products": [
+    {
+      "productId": 999,
+      "quantity": 1
+    }
+  ]
+}
+
+### Create invoice with zero quantity
+POST {{MCComputersBackend_HostAddress}}/api/invoices
+Content-Type: application/json
+
+{
+  "transactionDate": "2024-01-15T10:30:00",
+  "products": [
+    {
+      "productId": 1,
+      "quantity": 0
+    }
+  ]
+}
+
+### Get non-existent product
+GET {{MCComputersBackend_HostAddress}}/api/products/999
+Accept: application/json
+
+### Get non-existent invoice
+GET {{MCComputersBackend_HostAddress}}/api/invoices/999
 Accept: application/json
 
 ###

@@ -1,12 +1,12 @@
-﻿namespace MCComputersBackend.Models
+namespace MCComputersBackend.DTOs
 {
-    public class Invoice
+    public class InvoiceResponseDto
     {
         public int Id { get; set; }
         public DateTime TransactionDate { get; set; }
         public decimal? Discount { get; set; }
         public decimal TotalAmount { get; set; }
         public decimal BalanceAmount { get; set; }
-        public List<InvoiceItem> Items { get; set; } = new List<InvoiceItem>();
+        public List<InvoiceItemResponseDto> Items { get; set; } = new List<InvoiceItemResponseDto>();
     }
 }

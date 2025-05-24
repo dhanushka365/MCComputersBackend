@@ -1,0 +1,35 @@
+@MCComputersBackend_HostAddress = https://localhost:7000
+
+### Get all products
+GET {{MCComputersBackend_HostAddress}}/api/products
+
+### Get product by ID
+GET {{MCComputersBackend_HostAddress}}/api/products/1
+
+### Get products by category
+GET {{MCComputersBackend_HostAddress}}/api/products/category/Laptops
+
+### Create a new invoice
+POST {{MCComputersBackend_HostAddress}}/api/invoices
+Content-Type: application/json
+
+{
+  "transactionDate": "2024-01-15T10:30:00",
+  "discount": 50.00,
+  "products": [
+    {
+      "productId": 1,
+      "quantity": 2
+    },
+    {
+      "productId": 3,
+      "quantity": 1
+    }
+  ]
+}
+
+### Get all invoices
+GET {{MCComputersBackend_HostAddress}}/api/invoices
+
+### Get invoice by ID
+GET {{MCComputersBackend_HostAddress}}/api/invoices/1
